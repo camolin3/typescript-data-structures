@@ -14,7 +14,7 @@ test('has a head', t => {
 test('accepts an iterable as parameter', t => {
   const l = new LinkedList([1, 2, 3]);
   t.deepEqual(l.head.value, 1);
-  t.deepEqual(l.tail, { value: 3 });
+  t.deepEqual(l.tail, { value: 3, next: null });
 });
 
 test('can prepend', t => {
@@ -56,11 +56,12 @@ test('can append a second value', t => {
 
 test('can remove', t => {
   const l = new LinkedList()
-    .append('unique value')
-    .remove('unique value');
+    .append('unique value');
 
-  t.falsy(l.head);
-  t.falsy(l.tail);
+  l.remove('unique value');
+
+  t.is(l.head, null);
+  t.is(l.tail, null);
 });
 
 test('can remove medium node', t => {
@@ -68,18 +69,21 @@ test('can remove medium node', t => {
     .append(1)
     .append(2)
     .append(3)
-    .remove(2);
+    .append(4);
+
+  l.remove(2);
 
   t.is(l.head.value, 1);
-  t.is(l.tail.value, 3);
+  t.is(l.tail.value, 4);
 });
 
 test('can remove last node', t => {
   const l = new LinkedList()
     .append(1)
     .append(2)
-    .append(3)
-    .remove(3);
+    .append(3);
+
+  l.remove(3);
 
   t.is(l.head.value, 1);
   t.is(l.tail.value, 2);
@@ -102,8 +106,17 @@ test('can remove head of a single node', t => {
 
   l.removeHead();
 
-  t.falsy(l.tail);
-  t.falsy(l.head);
+  t.is(l.tail, null);
+  t.is(l.head, null);
+});
+
+test('can remove head of an empty list', t => {
+  const l = new LinkedList();
+
+  l.removeHead();
+
+  t.is(l.tail, null);
+  t.is(l.head, null);
 });
 
 test('can remove tail', t => {
@@ -123,8 +136,17 @@ test('can remove tail of a single node', t => {
 
   l.removeTail();
 
-  t.falsy(l.tail);
-  t.falsy(l.head);
+  t.is(l.tail, null);
+  t.is(l.head, null);
+});
+
+test('can remove tail of an empty list', t => {
+  const l = new LinkedList();
+
+  l.removeTail();
+
+  t.is(l.tail, null);
+  t.is(l.head, null);
 });
 
 test('can find first', t => {
@@ -136,6 +158,15 @@ test('can find first', t => {
 
   const node = l.find('Chidi');
   t.is(node.next.value, 'Tahani');
+});
+
+test('returns null when not found', t => {
+  const l = new LinkedList()
+    .append('Eleanor')
+    .append('Chidi');
+
+  const node = l.find('Michael');
+  t.is(node, null);
 });
 
 test('can be converted to an array', t => {

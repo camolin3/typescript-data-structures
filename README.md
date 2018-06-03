@@ -14,4 +14,10 @@ To run coverage,
 npm run cov
 ```
 
+To update the docs,
+
+```bash
+npm run doc
+```
+
 Using this [starter](https://github.com/bitjson/typescript-starter).

@@ -37,11 +37,11 @@ export class LinkedList {
    * @param value The value of the node.
    */
   public prepend(value: any) {
+    const next = this.head;
     if (!this.head) {
-      this.head = { value };
+      this.head = { value, next };
       this.tail = this.head;
     } else {
-      const next = this.head;
       this.head = { value, next };
     }
     return this;
@@ -56,11 +56,12 @@ export class LinkedList {
    * @param value The value of the node.
    */
   public append(value: any) {
+    const next = null;
     if (!this.tail) {
-      this.tail = { value };
+      this.tail = { value, next };
       this.head = this.tail;
     } else {
-      const newTail = { value };
+      const newTail = { value, next };
       this.tail.next = newTail;
       this.tail = newTail;
     }
@@ -128,12 +129,11 @@ export class LinkedList {
       return this;
     }
     let currentNode = this.head;
-    while (currentNode.next) {
+    while (currentNode && currentNode.next) {
       const inspectedNode = currentNode.next;
       if (!inspectedNode.next) {
         currentNode.next = null;
         this.tail = currentNode;
-        return this;
       }
       currentNode = currentNode.next;
     }
