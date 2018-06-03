@@ -172,4 +172,15 @@ export class LinkedList {
       },
     };
   }
+
+  /**
+   * Returns a string representation of the list.
+   * ```markdown
+   * Time complexity:   O(n)
+   * Space complexity:  O(n)
+   * ```
+   */
+  public toString() {
+    return [...this].join(' -> ');
+  }
 }

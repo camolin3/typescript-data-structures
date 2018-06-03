@@ -69,4 +69,12 @@ export declare class LinkedList {
             done: boolean;
         };
     };
+    /**
+     * Returns a string representation of the list.
+     * ```markdown
+     * Time complexity:   O(n)
+     * Space complexity:  O(n)
+     * ```
+     */
+    toString(): string;
 }

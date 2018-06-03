@@ -146,3 +146,9 @@ test('can be converted to an array', t => {
 
   t.deepEqual([...l], [1, 2, 3]);
 })
+
+test('implements toString', t => {
+  const l = new LinkedList([1, 2, 3]);
+
+  t.is(l.toString(), '1 -> 2 -> 3');
+})

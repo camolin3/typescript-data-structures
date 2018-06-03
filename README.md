@@ -7,3 +7,11 @@ To start developing with TDD, run in watch mode:
 ```bash
 npm run watch
 ```
+
+To run coverage,
+
+```bash
+npm run cov
+```
+
+Using this [starter](https://github.com/bitjson/typescript-starter).
