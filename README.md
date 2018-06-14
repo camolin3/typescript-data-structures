@@ -20,4 +20,11 @@ To update the docs,
 npm run doc
 ```
 
+To commit,
+
+```bash
+npm install -g commitizen
+git cz
+```
+
 Using this [starter](https://github.com/bitjson/typescript-starter).
