@@ -1,11 +1,20 @@
 // tslint:disable:no-expression-statement
 import { test } from 'ava';
+import dedent from 'ts-dedent';
 import { BinarySearchTree } from './binarySearchTree';
 import { BinaryTreeNode } from './binaryTreeNode';
 
 test('exists', t => {
   t.truthy(BinarySearchTree);
 });
+
+test('accepts an iterable as parameter', t => {
+  const bst = new BinarySearchTree([2, 3, 1]);
+  t.is(bst.root.value, 2);
+  t.is(bst.root.left.value, 1);
+  t.is(bst.root.right.value, 3);
+});
+
 
 test('can insert', t => {
   const bst = new BinarySearchTree()
@@ -83,4 +92,25 @@ test('can remove full root', t => {
   expectedTree.left = new BinaryTreeNode(1);
   t.is(bst.root.right, null);
   t.deepEqual(bst.root, expectedTree);
+});
+
+test('can be converted to an array', t => {
+  const bst = new BinarySearchTree()
+    .insert(3).insert(1).insert(2).insert(5).insert(4);
+
+  t.deepEqual([...bst], [1, 2, 3, 4, 5]);
+});
+
+test('can be printed', t => {
+  const bst = new BinarySearchTree()
+    .insert(3).insert(1).insert(2).insert(5).insert(4);
+
+  const expectedStr = dedent`
+  │   ┌── 5
+  │   │   └── 4
+  └── 3
+      │   ┌── 2
+      └── 1
+  `;
+  t.is(bst.toString(), expectedStr + '\n');
 });

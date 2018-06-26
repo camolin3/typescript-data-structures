@@ -18,13 +18,8 @@ export class LinkedList {
     if (!it) {
       return this;
     }
-    const iterator = it[Symbol.iterator]();
-    let { value, done } = iterator.next();
-    while (!done) {
+    for (const value of it) {
       this.append(value);
-      const next = iterator.next()
-      value = next.value;
-      done = next.done;
     }
   }
 

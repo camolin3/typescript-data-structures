@@ -3,10 +3,29 @@ import { BinaryTreeNode } from './binaryTreeNode';
 export class BinarySearchTree<T> {
   public root: BinaryTreeNode<T>;
 
-  constructor() {
+  /**
+   * Creates a new binary search tree.
+   * @param it Optional. If passed, it will insert every element.
+   */
+  constructor(it?: Iterable<T>) {
     this.root = null;
+
+    if (!it) {
+      return this;
+    }
+    for (const value of it) {
+      this.insert(value);
+    }
   }
 
+  /**
+   * Adds a node where it belongs.
+   * ```markdown
+   * Time complexity:   O(log(n))
+   * Space complexity:  O(1)
+   * ```
+   * @param value The value of the node.
+   */
   public insert(value: T) {
     if (!this.root) {
       this.root = new BinaryTreeNode(value);
@@ -17,13 +36,13 @@ export class BinarySearchTree<T> {
       if (value < node.value) {
         if (!node.left) {
           node.left = new BinaryTreeNode(value);
-          return this;
+          break;
         }
         node = node.left;
       } else {
         if (!node.right) {
           node.right = new BinaryTreeNode(value);
-          return this;
+          break;
         }
         node = node.right;
       }
@@ -31,6 +50,14 @@ export class BinarySearchTree<T> {
     return this;
   }
 
+  /**
+   * Finds the first node with the passed value.
+   * @param value The value of the node to return.
+   * ```markdown
+   * Time complexity:   O(log(n))
+   * Space complexity:  O(1)
+   * ```
+   */
   public find(value: T) {
     let node = this.root;
     do {
@@ -42,6 +69,14 @@ export class BinarySearchTree<T> {
     return null;
   }
 
+  /**
+   * Remove from the tree the first node with the passed value.
+   * ```markdown
+   * Time complexity:   O(log(n))
+   * Space complexity:  O(1)
+   * ```
+   * @param valueToRemove The value of the node to remove.
+   */
   public remove(valueToRemove: T) {
     const node = this.find(valueToRemove);
     if (!node) {
@@ -52,23 +87,29 @@ export class BinarySearchTree<T> {
       const { value } = this.findMin(node.right);
       this.remove(value);
       node.value = value;
-      return;
-    } else
-    if (node.left) {
-      this.replaceNodeInParent(node, node.left);
-      return;
-    } else
-    if (node.right) {
-      this.replaceNodeInParent(node, node.right);
-      return;
     } else {
-      this.replaceNodeInParent(node);
-      return;
+      const newNode = (node.left) ? node.left :
+        (node.right) ? node.right : null;
+      this.replaceNodeInParent(node, newNode);
     }
-
   }
 
-  public findMin(node: BinaryTreeNode<T>) {
+  public [Symbol.iterator]() {
+    return this.traverseInOrder(this.root);
+  }
+
+  /**
+   * Returns a string representation of the tree.
+   * ```markdown
+   * Time complexity:   O(n)
+   * Space complexity:  O(1)
+   * ```
+   */
+  public toString() {
+    return this.root.toString();
+  }
+
+  protected findMin(node: BinaryTreeNode<T>) {
     let currentNode = node;
     while (currentNode.left) {
       currentNode = currentNode.left;
@@ -76,7 +117,7 @@ export class BinarySearchTree<T> {
     return currentNode;
   }
 
-  public replaceNodeInParent(node: BinaryTreeNode<T>, newNode: BinaryTreeNode<T> = null) {
+  protected replaceNodeInParent(node: BinaryTreeNode<T>, newNode: BinaryTreeNode<T> = null) {
     if (node.parent) {
       if (node === node.parent.left) {
         node.parent.left = newNode;
@@ -89,5 +130,14 @@ export class BinarySearchTree<T> {
     if (newNode) {
       newNode.parent = node.parent;
     }
+  }
+
+  protected * traverseInOrder(node: BinaryTreeNode<T>) {
+    if (!node) {
+      return;
+    }
+    yield * this.traverseInOrder(node.left);
+    yield node.value;
+    yield * this.traverseInOrder(node.right);
   }
 }

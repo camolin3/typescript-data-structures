@@ -52,7 +52,8 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "sha.js": "^2.4.10"
+    "sha.js": "^2.4.10",
+    "ts-dedent": "^1.0.0"
   },
   "devDependencies": {
     "ava": "^1.0.0-beta.3",

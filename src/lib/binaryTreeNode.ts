@@ -39,4 +39,21 @@ export class BinaryTreeNode<T> {
       node.parent = this;
     }
   }
+
+  public toString() {
+    return this.toArrayString().join('');
+  }
+
+  protected toArrayString(prefix = '', isTail = true, sb = []) {
+    if (this._right) {
+      this._right.toArrayString(prefix + (isTail ? '│   ' : '    '), false, sb);
+    }
+    sb.push(prefix);
+    sb.push(isTail ? '└── ' : '┌── ');
+    sb.push(String(this.value) + '\n');
+    if (this._left) {
+      this._left.toArrayString(prefix + (isTail ? '    ' : '│   '), true, sb);
+    }
+    return sb;
+  }
 }
