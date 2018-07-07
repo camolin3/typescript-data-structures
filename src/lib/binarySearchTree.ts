@@ -117,7 +117,7 @@ export class BinarySearchTree<T> {
     return currentNode;
   }
 
-  protected replaceNodeInParent(node: BinaryTreeNode<T>, newNode: BinaryTreeNode<T> = null) {
+  protected replaceNodeInParent(node: BinaryTreeNode<T>, newNode: BinaryTreeNode<T>) {
     if (node.parent) {
       if (node === node.parent.left) {
         node.parent.left = newNode;
