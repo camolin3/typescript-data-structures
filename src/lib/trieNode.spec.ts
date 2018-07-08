@@ -36,6 +36,14 @@ test('insert and get child', t => {
   t.falsy(node.getChild('p'));
 });
 
+test('fails when inserting existing child', t => {
+  const node = new TrieNode('a', 'value');
+  node.insert('l', 'original');
+
+  t.throws(() => node.insert('l', 'overwrite'));
+  t.is(node.getChild('l').value, 'original');
+});
+
 test('can get all children chars', t => {
   const node = new TrieNode('a', 'value');
 
@@ -54,9 +62,9 @@ test('has to string', t => {
   node.getChild('e').insert('r', true);
 
   t.is(node.toString(), dedent`
-    h
-    hi
-    he
-    her`
+    h:null
+    hi:true
+    he:null
+    her:true`
   );
 });

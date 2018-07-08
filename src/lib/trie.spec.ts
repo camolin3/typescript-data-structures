@@ -32,8 +32,7 @@ test('can add with value', t => {
 
 test('can add multiple words', t => {
   const trie = new Trie();
-  trie.add('bye');
-  trie.add('byte');
+  trie.add('bye').add('byte');
 
   const byNode = trie.root.getChild('b').getChild('y');
   t.truthy(byNode.getChild('e'));
@@ -42,10 +41,7 @@ test('can add multiple words', t => {
 
 test('can suggest next chars', t => {
   const trie = new Trie();
-  trie.add('bye');
-  trie.add('byte');
-  trie.add('by');
-  trie.add('bus');
+  trie.add('bye').add('byte').add('by').add('bus');
 
   t.deepEqual(trie.suggestChars(''), ['b']);
   t.deepEqual(trie.suggestChars('b'), ['y', 'u']);
@@ -55,11 +51,7 @@ test('can suggest next chars', t => {
 });
 
 test('can determine if a word is in the tree', t => {
-  const trie = new Trie();
-  trie.add('bye');
-  trie.add('byte');
-  trie.add('by');
-  trie.add('bus');
+  const trie = new Trie().add('bye').add('byte').add('by').add('bus');
 
   t.false(trie.isWordIncluded('hello'));
   t.true(trie.isWordIncluded('b'));
@@ -69,8 +61,7 @@ test('can determine if a word is in the tree', t => {
 
 test('can find', t => {
   const trie = new Trie<number>();
-  trie.add('bye', 3);
-  trie.add('byte', 4);
+  trie.add('bye', 3).add('byte', 4);
 
   t.is(trie.find('bye'), 3);
   t.is(trie.find('byte'), 4);
@@ -91,15 +82,13 @@ test('can find is always falsy if no value is set', t => {
 
 test('has to string', t => {
   const trie = new Trie<boolean>();
-  trie.add('hi', true);
-  trie.add('he', true);
-  trie.add('her', true);
+  trie.add('hi', true).add('he', true).add('her', true);
 
   t.is(trie.toString(), dedent`
-
-    h
-    hi
-    he
-    her`
+    :null
+    h:null
+    hi:true
+    he:true
+    her:true`
   );
 });

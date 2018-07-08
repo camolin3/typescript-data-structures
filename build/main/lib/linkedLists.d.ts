@@ -2,14 +2,14 @@ export interface LinkedNode<T> {
     value: T;
     next?: LinkedNode<T>;
 }
-export declare class LinkedList {
-    head: LinkedNode<any>;
-    tail: LinkedNode<any>;
+export declare class LinkedList<T> {
+    head: LinkedNode<T>;
+    tail: LinkedNode<T>;
     /**
      * Creates a new linked list.
      * @param it Optional. If passed, it will append every element.
      */
-    constructor(it?: Iterable<any>);
+    constructor(it?: Iterable<T>);
     /**
      * Adds a node to the begining of the list.
      * ```markdown
@@ -18,7 +18,7 @@ export declare class LinkedList {
      * ```
      * @param value The value of the node.
      */
-    prepend(value: any): this;
+    prepend(value: T): this;
     /**
      * Adds a node at the end of list.
      * ```markdown
@@ -27,7 +27,7 @@ export declare class LinkedList {
      * ```
      * @param value The value of the node.
      */
-    append(value: any): this;
+    append(value: T): this;
     /**
      * Removes from the list the first node with the passed value.
      * ```markdown
@@ -36,7 +36,7 @@ export declare class LinkedList {
      * ```
      * @param value The value of the node to remove.
      */
-    remove(value: any): this;
+    remove(value: T): this;
     /**
      * Removes the first node of the list.
      * ```markdown
@@ -61,9 +61,9 @@ export declare class LinkedList {
      * Space complexity:  O(1)
      * ```
      */
-    find(value: any): LinkedNode<any>;
+    find(value: T): LinkedNode<T>;
     [Symbol.iterator](): {
-        _current: LinkedNode<any>;
+        _current: LinkedNode<T>;
         next(): {
             value: any;
             done: boolean;

@@ -17,6 +17,9 @@ export class TrieNode<T> {
   }
 
   public insert(char: string, value: T = null) {
+    if (this.has(char)) {
+      throw new Error(`Child "${char}" already exists.`);
+    }
     this.children[char] = new TrieNode(char, value);
   }
 
@@ -30,10 +33,11 @@ export class TrieNode<T> {
 
   public toString(prefix = '') {
     prefix += this.char;
-    let str = prefix;
+    let str = `${prefix}:${this.value}`;
     for (const node of Object.values(this.children)) {
       str += '\n' + node.toString(prefix);
     }
+
     return str;
   }
 }

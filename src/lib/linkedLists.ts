@@ -3,15 +3,15 @@ export interface LinkedNode<T> {
   next?: LinkedNode<T>;
 }
 
-export class LinkedList {
-  public head: LinkedNode<any>;
-  public tail: LinkedNode<any>;
+export class LinkedList<T> {
+  public head: LinkedNode<T>;
+  public tail: LinkedNode<T>;
 
   /**
    * Creates a new linked list.
    * @param it Optional. If passed, it will append every element.
    */
-  constructor(it?: Iterable<any>) {
+  constructor(it?: Iterable<T>) {
     this.head = null;
     this.tail = null;
 
@@ -31,7 +31,7 @@ export class LinkedList {
    * ```
    * @param value The value of the node.
    */
-  public prepend(value: any) {
+  public prepend(value: T) {
     const next = this.head;
     if (!this.head) {
       this.head = { value, next };
@@ -50,7 +50,7 @@ export class LinkedList {
    * ```
    * @param value The value of the node.
    */
-  public append(value: any) {
+  public append(value: T) {
     const next = null;
     if (!this.tail) {
       this.tail = { value, next };
@@ -71,7 +71,7 @@ export class LinkedList {
    * ```
    * @param value The value of the node to remove.
    */
-  public remove(value: any) {
+  public remove(value: T) {
     // handle head case
     if (this.head && this.head.value === value) {
       this.head = this.head.next;
@@ -143,7 +143,7 @@ export class LinkedList {
    * Space complexity:  O(1)
    * ```
    */
-  public find(value: any) {
+  public find(value: T) {
     let currentNode = this.head;
     while (currentNode) {
       if (currentNode.value === value) {
