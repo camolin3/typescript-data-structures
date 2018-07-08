@@ -48,4 +48,8 @@ export class Trie<T> {
     }
     return node.value;
   }
+
+  public toString() {
+    return this.root.toString();
+  }
 }

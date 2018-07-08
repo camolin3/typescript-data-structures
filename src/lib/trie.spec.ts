@@ -1,4 +1,5 @@
 import { test } from 'ava';
+import dedent from 'ts-dedent';
 import { Trie } from './trie';
 
 test('exists', t => {
@@ -86,4 +87,19 @@ test('can find is always falsy if no value is set', t => {
   t.falsy(trie.find('byte'));
   t.falsy(trie.find('b'));
   t.falsy(trie.find('bbb'));
+});
+
+test('has to string', t => {
+  const trie = new Trie<boolean>();
+  trie.add('hi', true);
+  trie.add('he', true);
+  trie.add('her', true);
+
+  t.is(trie.toString(), dedent`
+
+    h
+    hi
+    he
+    her`
+  );
 });

@@ -1,4 +1,5 @@
 import { test } from 'ava';
+import dedent from 'ts-dedent';
 import { TrieNode } from './trieNode';
 
 test('exists', t => {
@@ -44,4 +45,18 @@ test('can get all children chars', t => {
   node.insert('b');
 
   t.deepEqual(node.allChildrenChars(), ['l', 'b']);
+});
+
+test('has to string', t => {
+  const node = new TrieNode('h', null);
+  node.insert('i', true);
+  node.insert('e', null);
+  node.getChild('e').insert('r', true);
+
+  t.is(node.toString(), dedent`
+    h
+    hi
+    he
+    her`
+  );
 });

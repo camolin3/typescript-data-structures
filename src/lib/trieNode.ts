@@ -27,4 +27,13 @@ export class TrieNode<T> {
   public allChildrenChars() {
     return Object.keys(this.children);
   }
+
+  public toString(prefix = '') {
+    prefix += this.char;
+    let str = prefix;
+    for (const node of Object.values(this.children)) {
+      str += '\n' + node.toString(prefix);
+    }
+    return str;
+  }
 }
