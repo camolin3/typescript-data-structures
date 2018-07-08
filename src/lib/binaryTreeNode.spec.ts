@@ -1,5 +1,6 @@
 // tslint:disable:no-expression-statement
 import { test } from 'ava';
+import { dedent } from 'ts-dedent';
 import { BinaryTreeNode } from './binaryTreeNode';
 
 test('exists', t => {
@@ -50,4 +51,19 @@ test('on set, removes previous right', t => {
   t.is(n1.right, n3);
   t.is(n2.parent, null);
   t.is(n3.parent, n1);
+});
+
+test('print multiple right children', t => {
+  const n1 = new BinaryTreeNode(1);
+  const n2 = new BinaryTreeNode(2);
+  const n3 = new BinaryTreeNode(3);
+  n1.right = n2;
+  n2.right = n3;
+
+  t.is(n1.toString(), dedent`
+  │       ┌── 3
+  │   ┌── 2
+  └── 1
+
+  `);
 });

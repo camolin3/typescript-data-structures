@@ -127,9 +127,6 @@ export class BinarySearchTree<T> {
     } else {
       this.root = newNode;
     }
-    if (newNode) {
-      newNode.parent = node.parent;
-    }
   }
 
   protected * traverseInOrder(node: BinaryTreeNode<T>) {

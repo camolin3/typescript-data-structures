@@ -66,6 +66,8 @@ test('can find', t => {
   const node = bst.find(1);
   const expectedNode = bst.root.left.right;
   t.deepEqual(node,  expectedNode);
+
+  t.is(bst.find(10), null);
 });
 
 test('can remove lonely root', t => {
@@ -84,6 +86,34 @@ test('can remove leaf', t => {
   t.deepEqual(bst.root, expectedTree);
 });
 
+test('can remove left non-leaf node', t => {
+  const bst = new BinarySearchTree().insert(2).insert(1).insert(3).insert(0);
+
+  bst.remove(1);
+  const expectedTree = new BinaryTreeNode(2);
+  expectedTree.left = new BinaryTreeNode(0);
+  expectedTree.right = new BinaryTreeNode(3);
+  t.deepEqual(bst.root, expectedTree);
+});
+
+test('can remove right non-leaf node', t => {
+  const bst = new BinarySearchTree().insert(2).insert(1).insert(3).insert(4);
+
+  bst.remove(3);
+  const expectedTree = new BinaryTreeNode(2);
+  expectedTree.left = new BinaryTreeNode(1);
+  expectedTree.right = new BinaryTreeNode(4);
+  t.deepEqual(bst.root, expectedTree);
+});
+
+test('can remove a node and be replaced by its successor', t => {
+  const bst = new BinarySearchTree().insert(10).insert(9).insert(15).insert(14).insert(13);
+  const expectedBst = new BinarySearchTree().insert(13).insert(9).insert(15).insert(14);
+
+  bst.remove(10);
+  t.deepEqual(bst.root, expectedBst.root);
+});
+
 test('can remove full root', t => {
   const bst = new BinarySearchTree().insert(2).insert(1).insert(3);
 
@@ -92,6 +122,14 @@ test('can remove full root', t => {
   expectedTree.left = new BinaryTreeNode(1);
   t.is(bst.root.right, null);
   t.deepEqual(bst.root, expectedTree);
+});
+
+test('nothing happens if remove non existing node', t => {
+  const bst = new BinarySearchTree().insert(2).insert(1).insert(3);
+  const bstClone = new BinarySearchTree().insert(2).insert(1).insert(3);
+
+  bst.remove(10);
+  t.deepEqual(bst, bstClone);
 });
 
 test('can be converted to an array', t => {

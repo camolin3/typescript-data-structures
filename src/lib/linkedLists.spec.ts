@@ -64,7 +64,7 @@ test('can remove', t => {
   t.is(l.tail, null);
 });
 
-test('can remove medium node', t => {
+test('can remove after-root node', t => {
   const l = new LinkedList()
     .append(1)
     .append(2)
@@ -72,6 +72,19 @@ test('can remove medium node', t => {
     .append(4);
 
   l.remove(2);
+
+  t.is(l.head.value, 1);
+  t.is(l.tail.value, 4);
+});
+
+test('can remove medium node', t => {
+  const l = new LinkedList()
+    .append(1)
+    .append(2)
+    .append(3)
+    .append(4);
+
+  l.remove(3);
 
   t.is(l.head.value, 1);
   t.is(l.tail.value, 4);
